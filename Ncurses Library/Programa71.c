@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h> /*  for sleep()  */
-#include <ncurses.h>
+#include <ncurses.h> //incluimos la libreria ncurses
 #include <unistd.h>
 
 // WINDOW *crearVentana(int alto, int ancho, int y, int x){
@@ -17,7 +16,12 @@
 //     wrefresh(win);
 
 // }
-
+void f6();
+void f7();
+void f8();
+void f9();
+void f10();
+void f11();
 void opcion1(WINDOW *main)
 {
 
@@ -79,7 +83,7 @@ void opcion2(WINDOW *mainwin)
 {
 
     WINDOW *menuwin;
-    //Obtener tamaÃ±o de la ventana
+    //Obtener tamaño de la ventana
     int yMax, xMax;
     getmaxyx(mainwin, yMax, xMax);
     //Crear una ventana para ingresar nuestros datos
@@ -89,7 +93,9 @@ void opcion2(WINDOW *mainwin)
     wrefresh(menuwin);
     //Aplicando la funcionalidad de las teclas de movimiento
     keypad(menuwin, true);
-    char *opciones[] = {"Juan Carlos Sarmiento Gutierrez", "Brandon David Meza Vargas", "Alberto PeÃ±a Atanasio", "Sergi Alberto Martinez Ramirez"};
+    char *opciones[] = {"Juan Carlos Sarmiento Gutierrez",
+                        "Brandon David Meza Vargas", "Alberto Peña Atanasio",
+                        "Sergi Alberto Martinez Ramirez"};
     int opcion;
     int seleccion = 0;
     mvwprintw(menuwin, yMax - 25, 7, "MENU BASICO CON NCURSES.H\n");
@@ -100,7 +106,7 @@ void opcion2(WINDOW *mainwin)
             //Recorriendo nuestro arreglo de nombres para identificarlos
             if (i == seleccion)
                 wattron(menuwin, A_REVERSE);
-            mvwprintw(menuwin, i + 1, 1, opciones[i]); //AÃ±adiendolos a la caja
+            mvwprintw(menuwin, i + 1, 1, opciones[i]); //Añadiendolos a la caja
             wattroff(menuwin, A_REVERSE);
         }
         opcion = wgetch(menuwin); //Obtenemos la lista de nombres en base a la seleccion
@@ -136,10 +142,117 @@ void opcion2(WINDOW *mainwin)
 }
 void opcion3(WINDOW *win)
 {
+
+    //f6();
+    //f7();
+    //f8();
+    f9();
+    //f10();
+    //f11();
 }
 void opcion4(WINDOW *win)
 {
 }
+void f6()
+{
+    initscr();
+    start_color();
+
+    char *a = "Esto va primero";
+
+    init_color(COLOR_BLACK, 100, 698, 333);
+
+    insstr(a); //Esta llamada
+
+    insdelln(10); //Esta llamada recorre el numero de lineas indicado en su argumento, sobre la linea actual
+    refresh();
+    getch();
+    endwin();
+}
+
+void f7()
+{
+    initscr();
+    start_color();
+
+    char *a = "Esto va primero";
+
+    init_color(COLOR_BLACK, 100, 698, 333);
+
+    insstr(a);
+
+    //insertln();	//Esta llamada recorre una linea debajo de la linea actual
+    refresh();
+    getch();
+    endwin();
+}
+
+void f8()
+{
+    initscr();
+    start_color();
+
+    char *a = "Esto va primero";
+    char *aux;
+
+    init_color(COLOR_BLACK, 100, 698, 333);
+
+    //longname lo que hace es devolver una cadena que describe a la terminal
+    printw("Descripcion de la terminal: %s", longname());
+
+    refresh();
+    getch();
+    endwin();
+}
+
+void f9()
+{
+    initscr();
+    start_color();
+    init_color(COLOR_BLACK, 100, 698, 333);
+    int aux;
+
+    printw("Ingrese su caracter: ");
+    //mvgecth funciona como getch, solo que esta recibe el caracter dada la posicion en sus argumentos, el primer parametro indica filas y el segundo columnas
+    aux = mvgetch(8, 3);
+    printw("\n El caracter fue: %c\n", aux);
+    refresh();
+    getch();
+    endwin();
+}
+
+void f10()
+{
+
+    initscr();
+    start_color();
+    char *aux = "Soy una cadena impresa con mvwaddstr";
+    init_color(COLOR_BLACK, 100, 698, 333);
+
+    //namps duerme la terminal un tiempo determinado, indicado en milisegundos y en su argumento, antes de que cualquier accion se realice
+    napms(5000);
+    printw("Me dormi 5 segundos...\n");
+
+    //Esta funcion lo que hace es imprimir una fila de caracteres en una posicion indicada. El primer y segundo argumento indican la posicion donde se imprimira, el tercer argumento representa el caracter a imprimir y el ultimo parametro indica el maximo de esos caracteres que se mostraran en pantalla
+    mvvline(3, 6, '#', 10);
+
+    //Esta funcion lo que hace es imprimir una cadena en una posicion indicada.El primer argumento indica el recurso a utilizar, en este caso la pantalla. El segundo y tercer argumento indican la posicion donde se imprimira, el cuarto es la cadena a mostrar en dicha posicion
+    mvwaddstr(stdscr, 15, 20, aux);
+
+    refresh();
+    getch();
+    endwin();
+}
+
+void f11()
+{
+    initscr();
+    char *aux = "Soy una cadena";
+    printw("\n Soy una cadena \n");
+    //scr_dum sobrescribe en el archivo a.txt
+    scr_dump("a.txt");
+}
+
 int main()
 {
 
@@ -184,11 +297,11 @@ int main()
             break;
 
         case KEY_F(3):
-            //si presionamos F3 se ejcuta la opcion 3
+            opcion3(mainwin); //si presionamos F3 se ejcuta la opcion 3
             break;
 
         case KEY_F(4):
-            //si presionamos F3 se ejcuta la opcion 4
+            opcion4(mainwin); //si presionamos F3 se ejcuta la opcion 4
             break;
         case KEY_F(5):
             break;
@@ -196,8 +309,8 @@ int main()
     }
 
     delwin(mainwin); //eliminamos la ventana principal
-    refresh(); //actualizamos la pantalla
-    endwin(); //finalizamos la ejecucion de la ventana
-    
+    refresh();       //actualizamos la pantalla
+    endwin();        //finalizamos la ejecucion de la ventana
+
     return 0;
 }
