@@ -131,8 +131,8 @@ void opcion2(WINDOW *mainwin)
     }
     //Imprimimos el nombre en pantalla
     refresh();
-    mvwprintw(menuwin, yMax - 23, 7, "Seleccionaste a %s", opciones[seleccion]);
-    mvwprintw(menuwin, yMax - 20, 7, "Presione cualquier tecla para salir de la opcion");
+    mvwprintw(menuwin, yMax - 15, 7, "Seleccionaste a %s", opciones[seleccion]);
+    mvwprintw(menuwin, yMax - 13, 7, "Presione cualquier tecla para salir de la opcion");
     wgetch(menuwin);
 
     wclear(menuwin);
@@ -150,9 +150,7 @@ void opcion3(WINDOW *win)
     //f10();
     //f11();
 }
-void opcion4(WINDOW *win)
-{
-}
+
 void f6()
 {
     initscr();
@@ -274,7 +272,6 @@ int main()
     printw("Presiona F1 para opcion 1\n");
     printw("Presiona F2 para opcion 2\n");
     printw("Presiona F3 para opcion 3\n");
-    printw("Presiona F4 para opcion 4\n");
     printw("Presiona F5 para salir\n");
 
     refresh(); //actualizamos la pantalla
@@ -300,9 +297,6 @@ int main()
             opcion3(mainwin); //si presionamos F3 se ejcuta la opcion 3
             break;
 
-        case KEY_F(4):
-            opcion4(mainwin); //si presionamos F3 se ejcuta la opcion 4
-            break;
         case KEY_F(5):
             break;
         }
